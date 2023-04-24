@@ -1,11 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-import ToDoPage from './pages/ToDoPage';
+import "./App.css";
+import ToDoPage from "./pages/ToDoPage";
 
 function App() {
-  return (
-    <ToDoPage/>
-  );
+  return <ToDoPage />;
 }
 
 export default App;
