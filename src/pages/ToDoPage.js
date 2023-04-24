@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./ToDoPage.css";
 import TodoForm from "../Components/TodoForm";
 
 const ToDoPage = () => {
@@ -15,8 +16,8 @@ const ToDoPage = () => {
   };
 
   return (
-    <>
-      <div>
+    <div className="page-container">
+      <div className="toDo-list">
         {mockTodo.map((toDo) => {
           return (
             <input
@@ -28,7 +29,7 @@ const ToDoPage = () => {
         })}
       </div>
       <TodoForm onAddItem={handlerAddItem} />
-    </>
+    </div>
   );
 };
 

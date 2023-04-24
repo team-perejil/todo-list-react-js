@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./TodoForm.css";
 
 const TodoForm = ({ onAddItem }) => {
   const [item, setItem] = useState("");
@@ -19,13 +20,13 @@ const TodoForm = ({ onAddItem }) => {
         <label htmlFor="item">Escribe tu ítem</label>
         <input
           type="text"
-          id="item"
-          name="item"
+          className="item-input"
           value={item}
           onChange={handleChange}
+          maxLength={85}
         ></input>
       </div>
-      <button type="submit">Agregar item</button>
+      <button type="submit">Agregar ítem</button>
     </form>
   );
 };
