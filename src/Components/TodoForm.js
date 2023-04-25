@@ -6,11 +6,12 @@ const TodoForm = ({ onAddItem }) => {
 
   const handleChange = (e) => {
     setItem(e.target.value);
+    console.log("dbg1: ", e);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ title: item });
+    onAddItem({ title: item, createdAt: Date.now() });
     e.target.reset();
   };
 

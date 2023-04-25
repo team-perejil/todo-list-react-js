@@ -15,16 +15,34 @@ const ToDoPage = () => {
     setMockTodo([...mockTodo, newItem]);
   };
 
+  const handleChange = (e, i) => {
+    const { value } = e.target;
+    console.log("dbg2", value);
+    /*     mockTodo[i].title */
+    setMockTodo((prev) => {
+      const newToDo = { ...prev[i], title: value };
+      prev.splice(i, 1, newToDo);
+      return prev;
+    });
+    console.log("dbg3", mockTodo);
+  };
+
   return (
     <div className="page-container">
       <div className="toDo-list">
-        {mockTodo.map((toDo) => {
+        {mockTodo.map((toDo, i) => {
           return (
-            <input
-              className="toDo"
-              type="text"
-              defaultValue={toDo.title}
-            ></input>
+            <>
+              <input
+                className="toDo"
+                type="text"
+                defaultValue={toDo.title}
+                onChange={(e) => handleChange(e, i)}
+              ></input>
+              <div>
+                {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
+              </div>
+            </>
           );
         })}
       </div>
@@ -40,3 +58,11 @@ export default ToDoPage;
 2) el objetivo es que cada input (cada todo) sea editable:
 - en lugar de divs queremos que sean inputs --> OK
 - a medida que voy escribiendo se vaya actualizando el mockToDos  */
+
+/* Deberes2:
+- añadir la fecha dentro del div (hacer un div con cada toDo (input))
+- en el input, verificar que no sea 0 y que no sea mas de 10
+- display del mensaje de error (con la condición de la linea 64)
+BONUS COMPLICADO:
+- implementar que el input sea dinamico con el texto (se expanda y se contraiga). Explorar el textArea (los diferentes atributos) y con useRef y useEffect
+*/
