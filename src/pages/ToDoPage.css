@@ -1,16 +1,30 @@
 .toDo-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.itemData {
+  display: flex;
+  flex-direction: column-reverse;
+  border-radius: 15px;
+  -ms-flex-align: center;
+  border: 3px solid rgb(98, 123, 198);
+  border-style: double;
+  padding: 5px;
 }
 
 .toDo {
-    padding: 10px;
-    color: rgb(219, 16, 16);
-    font-weight: bold;
-    border-radius: 15px;
-    border: 3px solid grey;
-    background-color: rgba(128, 128, 128, 0.192);
+  padding: 10px;
+  color: rgb(219, 16, 16);
+  font-weight: bold;
+  border-radius: 15px;
+  border: 3px solid grey;
+  background-color: rgba(128, 128, 128, 0.192);
+}
 
+.data {
+  font-weight: bold;
+  padding: 5px;
 }

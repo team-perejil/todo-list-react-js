@@ -33,14 +33,16 @@ const ToDoPage = () => {
         {mockTodo.map((toDo, i) => {
           return (
             <>
-              <input
-                className="toDo"
-                type="text"
-                defaultValue={toDo.title}
-                onChange={(e) => handleChange(e, i)}
-              ></input>
-              <div>
-                {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
+              <div className="itemData">
+                <input
+                  className="toDo"
+                  type="text"
+                  defaultValue={toDo.title}
+                  onChange={(e) => handleChange(e, i)}
+                ></input>
+                <section className="data">
+                  {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
+                </section>
               </div>
             </>
           );
@@ -60,9 +62,9 @@ export default ToDoPage;
 - a medida que voy escribiendo se vaya actualizando el mockToDos  */
 
 /* Deberes2:
-- añadir la fecha dentro del div (hacer un div con cada toDo (input))
-- en el input, verificar que no sea 0 y que no sea mas de 10
-- display del mensaje de error (con la condición de la linea 64)
+- añadir la fecha dentro del div (hacer un div con cada toDo (input)) --> OK
+- en el input, verificar que no sea 0 y que no sea mas de 10 --> OK
+- display del mensaje de error (con la condición de la linea 64) --> OK
 BONUS COMPLICADO:
 - implementar que el input sea dinamico con el texto (se expanda y se contraiga). Explorar el textArea (los diferentes atributos) y con useRef y useEffect
 */

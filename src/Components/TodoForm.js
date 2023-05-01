@@ -11,8 +11,19 @@ const TodoForm = ({ onAddItem }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ title: item, createdAt: Date.now() });
-    e.target.reset();
+    if (item.length === 0) {
+      alert(
+        "El valor del input está vacío. Por favor ingresa un valor válido."
+      );
+      return;
+    }
+    if (item.length > 10) {
+      alert("El valor del imput no puede superar los 10 caracteres");
+      return;
+    } else {
+      onAddItem({ title: item, createdAt: Date.now() });
+      e.target.reset();
+    }
   };
 
   return (
@@ -24,7 +35,6 @@ const TodoForm = ({ onAddItem }) => {
           className="item-input"
           value={item}
           onChange={handleChange}
-          maxLength={85}
         ></input>
       </div>
       <button type="submit">Agregar ítem</button>
