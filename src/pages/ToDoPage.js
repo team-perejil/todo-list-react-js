@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./ToDoPage.css";
 import TodoForm from "../Components/TodoForm";
+import { readItems } from "../API/API";
 
 const ToDoPage = () => {
+  console.log(readItems());
   const initialmockToDo = [
     { title: "myFirstToDo" },
     { title: "myFirstToDo" },

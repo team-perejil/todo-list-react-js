@@ -1,29 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./TodoForm.css";
 
 const TodoForm = ({ onAddItem }) => {
   const [item, setItem] = useState("");
+
+  const [errors, setErrors] = useState([]);
+
+  // useEffect(() => {
+  //   alert(errors);
+  // }, [errors]);
 
   const handleChange = (e) => {
     setItem(e.target.value);
     console.log("dbg1: ", e);
   };
 
+  const handleErrors = (mensaje) => {
+    setErrors((prev) => {
+      return [...prev, mensaje];
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrors([]);
     if (item.length === 0) {
-      alert(
-        "El valor del input está vacío. Por favor ingresa un valor válido."
-      );
-      return;
+      const mensaje =
+        "El valor del input está vacío. Por favor ingresa un valor válido.";
+      handleErrors(mensaje);
+    }
+    if (item.length > 19) {
+      const mensaje =
+        "El valor del input es mayor que 1. Por favor ingresa un valor válido.";
+      handleErrors(mensaje);
     }
     if (item.length > 10) {
-      alert("El valor del imput no puede superar los 10 caracteres");
-      return;
-    } else {
-      onAddItem({ title: item, createdAt: Date.now() });
-      e.target.reset();
+      handleErrors("El valor del imput no puede superar los 2 caracteres");
     }
+    if (errors.length) return;
+    onAddItem({ title: item, createdAt: Date.now() });
+    e.target.reset();
   };
 
   return (
@@ -38,6 +54,9 @@ const TodoForm = ({ onAddItem }) => {
         ></input>
       </div>
       <button type="submit">Agregar ítem</button>
+      {errors.map((error) => {
+        return <p>{error}</p>;
+      })}
     </form>
   );
 };
