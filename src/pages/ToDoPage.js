@@ -1,20 +1,25 @@
+import { FaPencilAlt, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import "./ToDoPage.css";
 import TodoForm from "../Components/TodoForm";
-import { readItems } from "../API/API";
+import { addItems, readItems } from "../API/API";
 
 const ToDoPage = () => {
   console.log(readItems());
-  const initialmockToDo = [
-    { title: "myFirstToDo" },
-    { title: "myFirstToDo" },
-    { title: "myFirstToDo" },
-  ];
+  /*   const initialmockToDo = [
+    { title: "first to-do" },
+    { title: "second to-do" },
+    { title: "third to-do" },
+  ]; */
+
+  const initialmockToDo = readItems() || [];
 
   const [mockTodo, setMockTodo] = useState(initialmockToDo);
 
   const handlerAddItem = (newItem) => {
-    setMockTodo([...mockTodo, newItem]);
+    const newItems = addItems(newItem);
+    setMockTodo(newItems);
+    /*     setMockTodo([...mockTodo, newItem]); */
   };
 
   const handleChange = (e, i) => {
@@ -34,19 +39,20 @@ const ToDoPage = () => {
       <div className="toDo-list">
         {mockTodo.map((toDo, i) => {
           return (
-            <>
-              <div className="itemData">
-                <input
-                  className="toDo"
-                  type="text"
-                  defaultValue={toDo.title}
-                  onChange={(e) => handleChange(e, i)}
-                ></input>
-                <section className="data">
-                  {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
-                </section>
-              </div>
-            </>
+            <div className="itemData">
+              <input
+                className="toDo"
+                type="text"
+                defaultValue={toDo.title}
+                onChange={(e) => handleChange(e, i)}
+              ></input>
+              <section className="data">
+                {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
+                <div>
+                  <FaTimes className="delIcon" />
+                </div>
+              </section>
+            </div>
           );
         })}
       </div>
