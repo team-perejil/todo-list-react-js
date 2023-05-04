@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./TodoForm.css";
+import { addItems } from "../API/API";
 
 const TodoForm = ({ onAddItem }) => {
   const [item, setItem] = useState("");
@@ -29,13 +30,10 @@ const TodoForm = ({ onAddItem }) => {
         "El valor del input está vacío. Por favor ingresa un valor válido.";
       handleErrors(mensaje);
     }
-    if (item.length > 19) {
+    if (item.length > 25) {
       const mensaje =
-        "El valor del input es mayor que 1. Por favor ingresa un valor válido.";
+        "El valor del input es mayor que 25. Por favor ingresa un valor válido.";
       handleErrors(mensaje);
-    }
-    if (item.length > 10) {
-      handleErrors("El valor del imput no puede superar los 2 caracteres");
     }
     if (errors.length) return;
     onAddItem({ title: item, createdAt: Date.now() });
