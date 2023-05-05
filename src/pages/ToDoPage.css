@@ -30,3 +30,11 @@
   display: flex;
   justify-content: space-between;
 }
+
+.delIcon {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 3px;
+  background-color: rgba(255, 0, 0, 0.644);
+}
