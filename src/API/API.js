@@ -12,15 +12,27 @@ export const readItems = () => {
 export const addItems = (item) => {
   const id = uuidv4();
   const newItem = { id, ...item };
-  const items = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-  const newItems = items.length > 0 ? [...items, newItem] : [newItem];
+  const items = readItems();
+  const newItems = [...items, newItem];
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newItems));
   return newItems;
 };
 
 export const deteleItems = (id) => {
-  const items = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-  const deleteItem = items.filter((item) => item.id !== id);
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(deleteItem));
-  return deleteItem;
+  const items = readItems();
+  const restdeleteItem = items.filter((item) => item.id !== id);
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restdeleteItem));
+  return restdeleteItem;
+};
+
+export const updateItems = (updatingItem) => {
+  const storedItems = readItems();
+  const updatedItems = storedItems.map((item) => {
+    console.log("dbg5", item.id);
+    console.log("dbg5", updatingItem.id);
+    return item.id === updatingItem.id ? updatingItem : item;
+  });
+  console.log("dbg4", updatedItems);
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedItems));
+  return updatedItems;
 };

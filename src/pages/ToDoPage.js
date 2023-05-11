@@ -2,7 +2,7 @@ import { FaPencilAlt, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import "./ToDoPage.css";
 import TodoForm from "../Components/TodoForm";
-import { addItems, deteleItems, readItems } from "../API/API";
+import { addItems, deteleItems, readItems, updateItems } from "../API/API";
 
 const ToDoPage = () => {
   console.log(readItems());
@@ -38,6 +38,10 @@ const ToDoPage = () => {
     setMockTodo(deteleItems(toDo));
   };
 
+  const handleUpdate = (toDo) => {
+    setMockTodo(updateItems(toDo));
+  };
+
   return (
     <div className="page-container">
       <div className="toDo-list">
@@ -52,10 +56,16 @@ const ToDoPage = () => {
               ></input>
               <section className="data">
                 {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
-                <div>
+                <div className="icons">
                   <FaTimes
                     onClick={() => handleDelete(toDo.id)}
                     className="delIcon"
+                  />
+                  <FaPencilAlt
+                    onClick={() => {
+                      handleUpdate(toDo);
+                    }}
+                    className="editIcon"
                   />
                 </div>
               </section>
