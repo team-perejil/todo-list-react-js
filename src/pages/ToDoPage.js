@@ -1,5 +1,5 @@
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./ToDoPage.css";
 import TodoForm from "../Components/TodoForm";
 import { addItems, deteleItems, readItems } from "../API/API";
@@ -14,7 +14,11 @@ const ToDoPage = () => {
 
   const initialmockToDo = readItems() || [];
 
+  const textareaRef = useRef(null);
+  const MIN_TEXTAREA_HEIGHT = 32;
+
   const [mockTodo, setMockTodo] = useState(initialmockToDo);
+  const [textAreaValue, setTextAreaValue] = useState("");
 
   const handlerAddItem = (newItem) => {
     const newItems = addItems(newItem);
@@ -24,6 +28,7 @@ const ToDoPage = () => {
 
   const handleChange = (e, i) => {
     const { value } = e.target;
+    setTextAreaValue(value);
     console.log("dbg2", value);
     /*     mockTodo[i].title */
     setMockTodo((prev) => {
@@ -38,18 +43,35 @@ const ToDoPage = () => {
     setMockTodo(deteleItems(toDo));
   };
 
+  useEffect(() => {
+    if (!textareaRef.current) return;
+    textareaRef.current.style.heigh = "auto";
+    textareaRef.current.style.heigh = `${Math.max(
+      textareaRef.current.scrollHeight,
+      MIN_TEXTAREA_HEIGHT
+    )}px`;
+    if (textareaRef.current.scrollHeight > textareaRef.current.clientHeight) {
+      textareaRef.current.style.height = `${
+        textareaRef.current.scrollHeight + 1.5 * MIN_TEXTAREA_HEIGHT
+      }px`;
+    }
+  }, [textAreaValue, textareaRef, MIN_TEXTAREA_HEIGHT]);
+
   return (
     <div className="page-container">
       <div className="toDo-list">
         {mockTodo.map((toDo, i) => {
           return (
             <div className="itemData" key={toDo.id}>
-              <input
+              <textarea
                 className="toDo"
+                ref={textareaRef}
                 type="text"
                 defaultValue={toDo.title}
+                style={{ minHeight: MIN_TEXTAREA_HEIGHT }}
                 onChange={(e) => handleChange(e, i)}
-              ></input>
+                value={textAreaValue}
+              />
               <section className="data">
                 {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
                 <div>
