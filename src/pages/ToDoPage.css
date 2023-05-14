@@ -15,7 +15,12 @@
   padding: 5px;
 }
 
+
+
+
 .toDo {
+/*   resize: none; */
+overflow-y: hidden;
   padding: 10px;
   color: rgb(219, 16, 16);
   font-weight: bold;
