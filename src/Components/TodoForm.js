@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./TodoForm.css";
-import { addItems } from "../API/API";
 
 const TodoForm = ({ onAddItem }) => {
   const [item, setItem] = useState("");
