@@ -42,14 +42,9 @@ const TodoForm = ({ onAddItem }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="item-input">
         <label htmlFor="item">Escribe tu ítem</label>
-        <input
-          type="text"
-          className="item-input"
-          value={item}
-          onChange={handleChange}
-        ></input>
+        <input type="text" value={item} onChange={handleChange}></input>
       </div>
       <button type="submit">Agregar ítem</button>
       {errors.map((error) => {

@@ -1,5 +1,5 @@
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./ToDoPage.css";
 import TodoForm from "../Components/TodoForm";
 import { addItems, deteleItems, readItems } from "../API/API";
@@ -38,18 +38,27 @@ const ToDoPage = () => {
     setMockTodo(deteleItems(toDo));
   };
 
+  const textareaRef = useRef(null);
+
+  const handleTextareaInput = () => {
+    textareaRef.current.style.height = "auto";
+    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+  };
+
   return (
     <div className="page-container">
       <div className="toDo-list">
         {mockTodo.map((toDo, i) => {
           return (
             <div className="itemData" key={toDo.id}>
-              <input
+              <textarea
                 className="toDo"
                 type="text"
+                ref={textareaRef}
+                onInput={handleTextareaInput}
                 defaultValue={toDo.title}
                 onChange={(e) => handleChange(e, i)}
-              ></input>
+              />
               <section className="data">
                 {new Date(toDo.createdAt || 0).toLocaleDateString("en-US")}
                 <div>
